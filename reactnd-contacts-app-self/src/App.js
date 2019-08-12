@@ -6,7 +6,7 @@ const contacts = [
     id: 'tyler',
     name: 'Tyler McGinnis',
     handle: '@tylermcginnis',
-    avatarURL: 'https://udacity-react-server.run.goorm.io/tyler.jpg'
+    avatarURL: 'http://localhost:5001/tyler.jpg'
   },
   {
     id: 'karen',
