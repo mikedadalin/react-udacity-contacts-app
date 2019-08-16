@@ -2,10 +2,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function ListContacts(props) {
-    return (
+
+class ListContacts extends Component {
+    static propTypes = {
+        contacts:PropTypes.array.isRequired,
+        onDeleteContact:PropTypes.func.isRequired,
+    }
+    
+    render() {
+        return (
         <ol className="contact-list">
-            {props.contacts.map((contact) => (
+            {this.props.contacts.map((contact) => (
                 <li key={contact.id} className="contact-list-item">
                     <div 
                         className="contact-avatar"
@@ -18,7 +25,7 @@ function ListContacts(props) {
                         <p>{contact.handle}</p>
                     </div>
                     <button 
-                        onClick={() => props.onDeleteContact(contact)}
+                        onClick={() => this.props.onDeleteContact(contact)}
                         className="contact-remove">
                         Remove
                     </button>
@@ -26,11 +33,7 @@ function ListContacts(props) {
             ))}
         </ol>
     );
-}
-
-ListContacts.protoTypes = {
-    contacts:PropTypes.array.isRequired,
-    onDeleteContact:PropTypes.func.isRequired,
+    }
 }
 
 export default ListContacts
