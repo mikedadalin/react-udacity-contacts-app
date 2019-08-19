@@ -1,37 +1,32 @@
 import React, { Component } from 'react'
 import ListContacts from './ListContacts'
+import * as ContactsAPI from './utils/ContactsAPI'
 
 class App extends Component {
   state = {
-    contacts: [
-      {
-        id: 'tyler',
-        name: 'Tyler McGinnis',
-        handle: '@tylermcginnis',
-        avatarURL: 'http://localhost:5001/tyler.jpg'
-      },
-      {
-        id: 'karen',
-        name: 'Karen Isgrigg',
-        handle: '@karen_isgrigg',
-        avatarURL: 'http://localhost:5001/karen.jpg'
-      },
-      {
-        id: 'richard',
-        name: 'Richard Kalehoff',
-        handle: '@richardkalehoff',
-        avatarURL: 'http://localhost:5001/richard.jpg'
-      },
-    ]
+    contacts: []
+  }
+
+  componentDidMount() {
+    ContactsAPI.getAll()
+      .then((contacts) => {
+        this.setState(() => ({
+          contacts
+        }))
+      })
   }
 
   // becasue the state is in App class, so removeContact is in App 
   removeContact = (contact) => { // pass in the contact which is going to remove
+    // remove the contact at front end browser
     this.setState((currentState) => ({
       contacts: currentState.contacts.filter((c) => {
         return c.id !== contact.id
       })
     }))
+
+    // remove the contact at back end database
+    ContactsAPI.remove(contact);
   }
 
   render() {
