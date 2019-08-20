@@ -28,7 +28,7 @@ class ListContacts extends Component {
         // name some variable to make code cleaner
         const { query } = this.state // const query = this.state.query
         // The curly braces around the variable name is called Destructuring assignment
-        const { contacts, onDeleteContact} = this.props
+        const { contacts, onDeleteContact, onNavigate} = this.props
         const showingContacts = query === '' 
                                 ? contacts 
                                 : contacts.filter((c) => (c.name.toLowerCase().includes(query.toLowerCase())))
@@ -44,6 +44,10 @@ class ListContacts extends Component {
                         value={query}
                         onChange={(event) => this.updateQuery(event.target.value)}
                     />
+                    <a href="#create"
+                        onClick={() => onNavigate()}
+                        className="add-contact"
+                    >Add Contact</a>
                 </div>
 
             {showingContacts !== contacts.length && (
