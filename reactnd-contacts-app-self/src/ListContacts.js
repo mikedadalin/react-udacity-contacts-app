@@ -1,6 +1,7 @@
 //$$ functional component version
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 
 class ListContacts extends Component {
@@ -28,14 +29,13 @@ class ListContacts extends Component {
         // name some variable to make code cleaner
         const { query } = this.state // const query = this.state.query
         // The curly braces around the variable name is called Destructuring assignment
-        const { contacts, onDeleteContact, onNavigate} = this.props
+        const { contacts, onDeleteContact} = this.props
         const showingContacts = query === '' 
                                 ? contacts 
                                 : contacts.filter((c) => (c.name.toLowerCase().includes(query.toLowerCase())))
 
         return (
             <div className="list-contacts">
-                {JSON.stringify(this.state)}
                 <div className="list-contacts-top">
                     <input 
                         className='search-contacts'
@@ -44,13 +44,13 @@ class ListContacts extends Component {
                         value={query}
                         onChange={(event) => this.updateQuery(event.target.value)}
                     />
-                    <a href="#create"
-                        onClick={() => onNavigate()}
+                    <Link 
+                        to="/create"
                         className="add-contact"
-                    >Add Contact</a>
+                    >Add Contact</Link>
                 </div>
 
-            {showingContacts !== contacts.length && (
+            {showingContacts.length !== contacts.length && (
                 <div className="showing-contacts">
                     <span>Now showing {showingContacts.length} of {contacts.length}</span>
                     <button onClick={this.clearQuery}>Show all</button>
